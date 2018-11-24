@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package inventorirsi;
-
+//import inventorirsi.koneksi;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 /**
  *
  * @author cliqu
@@ -16,6 +21,7 @@ public class InventoriRSI extends javax.swing.JFrame {
      */
     public InventoriRSI() {
         initComponents();
+        KoneksiDatabase();
     }
 
     /**
@@ -91,4 +97,18 @@ public class InventoriRSI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    private void KoneksiDatabase() {
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException cnf) {
+        }
+         try {
+        Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost/inventorirsi", "root", "");
+             System.out.println("Koneksi Berhasil");
+        } catch (SQLException se) {
+             JOptionPane.showMessageDialog(null, "Koneksi Database Tidak Berhasil");
+        } catch (Exception e) {
+        }    
+    }
 }
