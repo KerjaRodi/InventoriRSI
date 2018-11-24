@@ -16,6 +16,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
      */
     public Stok_Gudang() {
         initComponents();
+        setDefaultCloseOperation(Stok_Gudang.DISPOSE_ON_CLOSE);
     }
 
     /**
