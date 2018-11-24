@@ -9,12 +9,12 @@ package inventorirsi;
  *
  * @author ASUS
  */
-public class Stok_Gudang extends javax.swing.JFrame {
+public class Stok_Kulkas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Stok_Gudang
+     * Creates new form Stok_Kulkas
      */
-    public Stok_Gudang() {
+    public Stok_Kulkas() {
         initComponents();
     }
 
@@ -51,7 +51,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Stok Gudang");
+        jLabel1.setText("Stok Kulkas");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -80,7 +80,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
 
         jTextField2.setText("jTextField2");
 
-        jLabel6.setText("ID Gudang");
+        jLabel6.setText("ID Kulkas");
 
         jTextField3.setText("jTextField3");
 
@@ -113,7 +113,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
-                .addGap(57, 57, 57))
+                .addGap(61, 61, 61))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +149,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID Gudang", "Nama Barang", "Stok", "Tanggal"
+                "ID Kulkas", "Nama Barang", "Stok", "Tanggal"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
