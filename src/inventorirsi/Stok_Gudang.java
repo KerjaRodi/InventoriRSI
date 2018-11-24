@@ -156,7 +156,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
 
         jButton1.setText("Tambah");
 
-        jButton2.setText("Edit");
+        jButton2.setText("Ubah");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
