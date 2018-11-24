@@ -9,12 +9,12 @@ package inventorirsi;
  *
  * @author ASUS
  */
-public class Stok_Gudang extends javax.swing.JFrame {
+public class Stok_Kulkas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Stok_Gudang
+     * Creates new form Stok_Kulkas
      */
-    public Stok_Gudang() {
+    public Stok_Kulkas() {
         initComponents();
     }
 
@@ -51,7 +51,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Stok Gudang");
+        jLabel1.setText("Stok Kulkas");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -72,11 +72,6 @@ public class Stok_Gudang extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-<<<<<<< HEAD
-        jLabel4.setText("Harga");
-
-        jLabel5.setText("Jumlah");
-=======
         jLabel4.setText("Stok");
 
         jTextField1.setText("jTextField1");
@@ -84,11 +79,10 @@ public class Stok_Gudang extends javax.swing.JFrame {
         jLabel5.setText("Tanggal");
 
         jTextField2.setText("jTextField2");
->>>>>>> 8c586d04ecd4bb746e12df59b78fb0fdcd25ea70
 
-        jLabel6.setText("ID Gudang");
+        jLabel6.setText("ID Kulkas");
 
-        jButton5.setText("Simpan");
+        jTextField3.setText("jTextField3");
 
         jButton5.setText("Simpan");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -104,25 +98,6 @@ public class Stok_Gudang extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jComboBox1, 0, 93, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton5)))
-                .addContainerGap())
-=======
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
@@ -138,8 +113,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
-                .addGap(57, 57, 57))
->>>>>>> 8c586d04ecd4bb746e12df59b78fb0fdcd25ea70
+                .addGap(61, 61, 61))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,11 +138,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton5)
-<<<<<<< HEAD
-                .addContainerGap())
-=======
                 .addGap(27, 27, 27))
->>>>>>> 8c586d04ecd4bb746e12df59b78fb0fdcd25ea70
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -179,7 +149,7 @@ public class Stok_Gudang extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID Gudang", "Nama Barang", "Stok", "Tanggal"
+                "ID Kulkas", "Nama Barang", "Stok", "Tanggal"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
