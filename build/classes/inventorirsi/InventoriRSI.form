@@ -95,7 +95,7 @@
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\cliqu\Documents\Untitled-5.png"/>
+              <Image iconType="3" name="/inventorirsi/img/kulkas.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Stok Kulkas"/>
           </Properties>
@@ -106,7 +106,7 @@
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\cliqu\Documents\Untitled-4.png"/>
+              <Image iconType="3" name="/inventorirsi/img/barang.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Barang"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -142,7 +142,7 @@
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\cliqu\Documents\Untitled-6.png"/>
+              <Image iconType="3" name="/inventorirsi/img/grafik.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Grafik Penjualan"/>
           </Properties>
@@ -150,7 +150,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\cliqu\Documents\Untitled-3.png"/>
+              <Image iconType="3" name="/inventorirsi/img/gudang.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Stok Gudang"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
