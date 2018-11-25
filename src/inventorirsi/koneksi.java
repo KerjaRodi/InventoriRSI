@@ -13,16 +13,26 @@ import javax.swing.JOptionPane;
  * @author cliqu
  */
 public class koneksi {
-   Connection con;
-    Statement stm;
-    
-    public void config(){
-        try {
+   public Connection conn;
+    public koneksi(){}
+
+    public Connection openkoneksi() throws ClassNotFoundException{
+        try{
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost/inventorirsi", "root", "");
-            stm = con.createStatement();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "koneksi gagal "+e.getMessage());
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventorirsi?user=root&pass=");
+            return conn;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Tidak ada koneksi yang terbuka.");
+            return null;
         }
     }
+    
+    public void closekoneksi() throws SQLException{
+        try{
+            if(conn != null){
+                System.out.print("Tutup Koneksi\n");
+            }
+        }catch(Exception ex){
+        }
+    } 
 }

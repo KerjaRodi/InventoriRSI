@@ -15,10 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class InventoriRSI extends javax.swing.JFrame {
     inventorirsi.koneksi konek = new inventorirsi.koneksi();
-    Connection con;
-    Statement stat;
-    ResultSet rs;
-    String sql;
+    
     /**
      * Creates new form InventoriRSI
      */
@@ -26,9 +23,7 @@ public class InventoriRSI extends javax.swing.JFrame {
         initComponents();
     
     koneksi DB = new koneksi();
-        DB.config();
-        con = DB.con;
-        stat = DB.stm;
+     
     }
 
     /**
