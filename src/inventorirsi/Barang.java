@@ -72,6 +72,8 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         jTextField6 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,7 +101,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Barang", "Nama Barang", "Jumlah/Karton", "Jumlah", "Hargal", "Total", "Harga/Pcs", "Harga Jual", "Profit"
+                "ID Barang", "Nama Barang", "Jumlah/@Karton", "Jumlah Karton", "Hargal", "Total", "Harga/Pcs", "Harga Jual", "Profit"
             }
         ));
         datatable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -159,7 +161,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
 
         jLabel3.setText("Nama Barang");
 
-        jLabel4.setText("Jumlah/Karton");
+        jLabel4.setText("Jumlah/@Karton");
 
         jLabel6.setText("ID Barang");
 
@@ -176,7 +178,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             }
         });
 
-        jLabel2.setText("Jumlah");
+        jLabel2.setText("Jumlah Karton");
 
         txtJml.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,17 +194,37 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             }
         });
 
-        jLabel9.setText("Total");
+        jLabel9.setText("Total Harga");
+
+        txtTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTotalKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("Harga/Pcs");
 
         jLabel7.setText("Harga Jual");
+
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Profit");
 
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField7ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Jumlah Total");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -222,7 +244,16 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
                         .addGap(43, 43, 43)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(185, 185, 185)
+                                .addComponent(btnSimpan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTotal)
+                                    .addComponent(txtHrgaPcs, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                    .addComponent(jTextField6)
+                                    .addComponent(jTextField7)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNama, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -232,17 +263,17 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                                     .addComponent(txtJmlKarton))
                                 .addGap(58, 58, 58)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)))
-                            .addComponent(btnSimpan))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTotal)
-                            .addComponent(txtHrgaPcs, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7))))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(39, 39, 39))
         );
         jPanel3Layout.setVerticalGroup(
@@ -250,11 +281,18 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUbah)
-                .addGap(31, 31, 31)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(24, 24, 24))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +376,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         pack();
@@ -352,15 +390,22 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                 btnSimpan.setText("Simpan Perubahan");
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang as 'ID Barang', barang.nama as 'Nama Barang', barang.harga as 'Harga' FROM barang");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT id_barang as 'ID Barang', `nama` as 'Nama', `jumlah/@karton` as 'Jml/@Karton', `jumlah_karton` as 'Jml Karton', `harga/karton` as 'Harga', `totalhargakarton` as 'Total', `harga/pcs` as 'Harga/Pcs', `harga_jual` as 'Harga Jual', `total_profit` as 'Profit', `jumlah_sisa` as Sisa FROM `barang`WHERE id_barang='"+row_id+"'");
                 if(sql.next()){
                     lblUbah.setForeground(new Color(43, 152, 240));
                     String kode = sql.getString("ID Barang");
                     lblUbah.setText("Ubah Data | " + kode);
                     txtid.setText(sql.getString("ID Barang"));
                     txtID.setText(kode);
-                    txtNama.setText(sql.getString("Nama Barang"));
-                    txtJmlKarton.setText(sql.getString("Harga"));
+                    txtNama.setText(sql.getString("Nama"));
+                    txtJmlKarton.setText(sql.getString("Jml/@Karton"));
+                    txtJml.setText(sql.getString("Jml Karton"));
+                    txtHarga.setText(sql.getString("Harga"));
+                    txtTotal.setText(sql.getString("Total"));
+                    txtHrgaPcs.setText(sql.getString("Harga/Pcs"));
+                    jTextField6.setText(sql.getString("Harga Jual"));
+                    jTextField7.setText(sql.getString("Profit"));
+                    
 //                    txtid_kategori.setText(sql.getString("id_kategori"));
 //                    txtsatuan.setText(sql.getString("satuan"));
 //                    txtstok.setText(sql.getString("stok"));
@@ -382,7 +427,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT id_barang as 'ID Barang', `nama` as 'Nama', `jumlah@karton` as 'Jml@Karton', `jumlah/karton` as 'Jml/Karton', `harga/karton` as 'Harga', `totalhargakarton` as 'Total', `harga/pcs` as 'Harga/Pcs', `harga_jual` as 'Harga Jual', `total_profit` as 'Profit', `jumlah_sisa` as Sisa FROM `barang`");
+            java.sql.ResultSet sql = stm.executeQuery("SELECT id_barang as 'ID Barang', `nama` as 'Nama', `jumlah/@karton` as 'Jml/@Karton', `jumlah_karton` as 'Jml Karton', `harga/karton` as 'Harga', `totalhargakarton` as 'Total', `harga/pcs` as 'Harga/Pcs', `harga_jual` as 'Harga Jual', `total_profit` as 'Profit', `jumlah_sisa` as Sisa FROM `barang`");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
             datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
             datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
@@ -428,38 +473,48 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        String id = txtID.getText();
+        String id = txtid.getText();
+        String ID = txtID.getText();
         String nama = txtNama.getText();
-        String harga = txtJmlKarton.getText();
+        String harga = txtHarga.getText();
+        String jumlahPerKarton = txtJmlKarton.getText();
+        String jumlah_karton = txtJml.getText();
+        String total_harga = txtTotal.getText();
+        String hargaPerPcs = txtHrgaPcs.getText();
+        String harga_jual = jTextField6.getText();
+        String profit = jTextField7.getText();
+        System.out.println(ID+','+nama+','+jumlahPerKarton+','+jumlah_karton+','+harga+','+total_harga+','+hargaPerPcs+','+harga_jual+','+profit);
+       
         int c_kode = 0;
-        if(!"".equals(id) && !"".equals(nama) && !"".equals(harga)){
+        if(!"".equals(ID) && !"".equals(nama) && !"".equals(harga)){
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
                 java.sql.ResultSet sql = stm.executeQuery("SELECT COUNT(barang.id_barang) as count FROM barang WHERE barang.id_barang='"+id+"'");
                 sql.next();
                 c_kode = sql.getInt("count");
+                System.out.println(c_kode);
                 konek.closekoneksi();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error " + e);
+                JOptionPane.showMessageDialog(null, "Error gann 2 " + e);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if("".equals(id)){
+            if(id.equals("")){
                 if(c_kode == 0)
                 {
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("INSERT INTO barang(id_barang, nama, harga) VALUES ('" + id + "', '" + nama + "', '" + harga + "");
+                        stm.executeUpdate("Insert `barang`  SET `id_barang`='"+ID+"', `nama`='"+nama+"',`jumlah/@karton`="+jumlahPerKarton+",`jumlah_karton`="+jumlah_karton+",`harga/karton`="+harga+",`totalhargakarton`="+total_harga+",`harga/pcs`="+hargaPerPcs+",`harga_jual`="+harga_jual+",`total_profit`="+profit+", `jumlah_sisa`='12'");
                         JOptionPane.showMessageDialog(null, "Berhasil menyimpan data.");
                         btnTambah.doClick();
                         konek.closekoneksi();
                         GetData();
                     } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Error " + e);
-                    } catch (ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(null, "Error Gann " + e);
+                    } catch (ClassNotFoundException ex) { 
                         Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -472,13 +527,13 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("UPDATE barang SET id_barang='" + id + "',nama='" + nama + "',harga='" + harga + " WHERE id_barang = '" + id + "'");
+                        stm.executeUpdate("UPDATE `barang` SET `nama`='"+nama+"',`jumlah/@karton`="+jumlahPerKarton+",`jumlah_karton`="+jumlah_karton+",`harga/karton`="+harga+",`totalhargakarton`="+total_harga+",`harga/pcs`="+hargaPerPcs+",`harga_jual`="+harga_jual+",`total_profit`="+profit+" WHERE id_barang = '" + id + "'");
                         JOptionPane.showMessageDialog(null, "Berhasil mengubah data.");
                         btnTambah.doClick();
                         konek.closekoneksi();
                         GetData();
                     } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Error " + e);
+                        JOptionPane.showMessageDialog(null, "Error Update " + e);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -512,10 +567,22 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             int harga = Integer.parseInt(txtHarga.getText());
             int totalawal = jmlkarton * jml;
             int hargapcs = harga/jmlkarton;
-            txtTotal.setText(String.valueOf(totalawal));
+            jTextField1.setText(String.valueOf(totalawal));
             txtHrgaPcs.setText(String.valueOf(hargapcs));
     }        // TODO add your handling code here:
     }//GEN-LAST:event_txtHargaKeyPressed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void txtTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalKeyTyped
 
     private void GetData_View(){
         int row = datatable.getSelectedRow();
@@ -567,6 +634,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -581,6 +649,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel lblUbah;
