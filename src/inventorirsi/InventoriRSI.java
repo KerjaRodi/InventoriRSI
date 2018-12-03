@@ -5,10 +5,21 @@
  */
 package inventorirsi;
 //import inventorirsi.koneksi;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import net.proteanit.sql.DbUtils;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.data.category.DefaultCategoryDataset;
 /**
  *
  * @author cliqu
@@ -23,6 +34,12 @@ public class InventoriRSI extends javax.swing.JFrame {
         initComponents();
     
     koneksi DB = new koneksi();
+    this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                GetData();
+            }
+        });
      
     }
 
@@ -43,7 +60,7 @@ public class InventoriRSI extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        datatable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +102,11 @@ public class InventoriRSI extends javax.swing.JFrame {
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inventorirsi/img/grafik.png"))); // NOI18N
         jButton6.setText("Grafik Penjualan");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inventorirsi/img/gudang.png"))); // NOI18N
         jButton1.setText("Stok Gudang");
@@ -128,18 +150,30 @@ public class InventoriRSI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        datatable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"BR01", "Pulpy Orange", "50", "10", "5000"},
-                {"BR02", "Milo", "34", "14", "6000"},
-                {"BR03", "Air Mineral", "27", "9", "3000"},
-                {"BR04", "Teh Kotak", "15", "9", "5000"}
+
             },
             new String [] {
-                "ID_Barang", "Nama Barang", "Stok Gudang", "Stok Kulkas", "Harga"
+                "ID_Barang", "Nama_Barang", "Stok_Gudang", "Stok_Kulkas", "Harga"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(datatable);
+        if (datatable.getColumnModel().getColumnCount() > 0) {
+            datatable.getColumnModel().getColumn(0).setResizable(false);
+            datatable.getColumnModel().getColumn(1).setResizable(false);
+            datatable.getColumnModel().getColumn(2).setResizable(false);
+            datatable.getColumnModel().getColumn(3).setResizable(false);
+            datatable.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,6 +204,28 @@ public class InventoriRSI extends javax.swing.JFrame {
         tampil.setVisible(true);    // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void GetData(){
+        try {
+            Connection conn = konek.openkoneksi();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang as 'ID Barang', barang.nama as 'Nama Barang', stok_gudang.jumlah as 'Stok Gudang', stok_kulkas.jumlahstok as 'Stok Kulkas', barang.harga_jual FROM barang JOIN stok_gudang JOIN stok_kulkas ON barang.id_barang = stok_gudang.id_barang AND barang.id_barang = stok_kulkas.id_barang");
+            datatable.setModel(DbUtils.resultSetToTableModel(sql));
+            datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
+            datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
+            datatable.getColumnModel().getColumn(2).setPreferredWidth(90);
+            datatable.getColumnModel().getColumn(3).setPreferredWidth(60);
+            datatable.getColumnModel().getColumn(4).setPreferredWidth(40);
+            
+            sql.last();
+            String count_rows = String.valueOf(sql.getRow());
+            //lblcount_rows.setText("Jumlah Data : " + count_rows);
+            konek.closekoneksi();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         Cetak_Rekap_Mingguan tampil = new Cetak_Rekap_Mingguan();
         tampil.setLocationRelativeTo(null);
@@ -193,6 +249,21 @@ public class InventoriRSI extends javax.swing.JFrame {
         tampil.setLocationRelativeTo(null);
         tampil.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        DefaultCategoryDataset objCategoryDataset = new DefaultCategoryDataset();
+        objCategoryDataset.setValue(30,"Minuman","Pulpy");
+        objCategoryDataset.setValue(50,"Minuman","Aqua");
+        objCategoryDataset.setValue(20,"Minuman","Milo");
+        objCategoryDataset.setValue(10,"Minuman","Teh Kotak");
+        JFreeChart chart = ChartFactory.createBarChart("Data Minuman",null,null,objCategoryDataset);
+        ChartFrame frame = new ChartFrame("Laporan Grafik", chart);
+        frame.setSize(400,400);
+        frame.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,6 +301,7 @@ public class InventoriRSI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable datatable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -238,7 +310,6 @@ public class InventoriRSI extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
    
