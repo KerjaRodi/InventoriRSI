@@ -208,7 +208,7 @@ public class InventoriRSI extends javax.swing.JFrame {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang as 'ID Barang', barang.nama as 'Nama Barang', stok_gudang.jumlah as 'Stok Gudang', stok_kulkas.jumlah as 'Stok Kulkas', barang.harga FROM barang JOIN stok_gudang JOIN stok_kulkas ON barang.id_barang = stok_gudang.id_barang AND barang.id_barang = stok_kulkas.id_barang");
+            java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang as 'ID Barang', barang.nama as 'Nama Barang', stok_gudang.jumlah as 'Stok Gudang', stok_kulkas.jumlahstok as 'Stok Kulkas', barang.harga_jual FROM barang JOIN stok_gudang JOIN stok_kulkas ON barang.id_barang = stok_gudang.id_barang AND barang.id_barang = stok_kulkas.id_barang");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
             datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
             datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
@@ -216,7 +216,6 @@ public class InventoriRSI extends javax.swing.JFrame {
             datatable.getColumnModel().getColumn(3).setPreferredWidth(60);
             datatable.getColumnModel().getColumn(4).setPreferredWidth(40);
             
-
             sql.last();
             String count_rows = String.valueOf(sql.getRow());
             //lblcount_rows.setText("Jumlah Data : " + count_rows);

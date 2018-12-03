@@ -5,11 +5,19 @@
  */
 package inventorirsi;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author ASUS
  */
 public class Stok_Kulkas extends javax.swing.JFrame {
+    inventorirsi.koneksi konek = new inventorirsi.koneksi();
 
     /**
      * Creates new form Stok_Kulkas
@@ -17,6 +25,8 @@ public class Stok_Kulkas extends javax.swing.JFrame {
     public Stok_Kulkas() {
         initComponents();
         setDefaultCloseOperation(Stok_Kulkas.DISPOSE_ON_CLOSE);
+        
+        GetData();
     }
 
     /**
@@ -43,7 +53,7 @@ public class Stok_Kulkas extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        datatable = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -88,7 +98,7 @@ public class Stok_Kulkas extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("ID Kulkas");
+        jLabel6.setText("ID Barang");
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +164,7 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        datatable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -162,10 +172,10 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID Kulkas", "Nama Barang", "Harga", "Stok"
+                "ID Barang", "Nama Barang", "Harga", "Stok"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(datatable);
 
         jButton1.setText("Tambah");
 
@@ -275,6 +285,29 @@ public class Stok_Kulkas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void GetData(){
+        try {
+            Connection conn = konek.openkoneksi();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang as 'ID Barang', nama as 'Nama Barang', harga_jual as 'Harga Jual', jumlahstok as Stok FROM barang JOIN stok_kulkas ON barang.id_barang=stok_kulkas.id_barang");
+            datatable.setModel(DbUtils.resultSetToTableModel(sql));
+            datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
+            datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
+            datatable.getColumnModel().getColumn(2).setPreferredWidth(20);
+            datatable.getColumnModel().getColumn(3).setPreferredWidth(20);
+
+            
+
+            sql.last();
+            String count_rows = String.valueOf(sql.getRow());
+            //lblcount_rows.setText("Jumlah Data : " + count_rows);
+            konek.closekoneksi();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -311,6 +344,7 @@ public class Stok_Kulkas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable datatable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -328,7 +362,6 @@ public class Stok_Kulkas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
