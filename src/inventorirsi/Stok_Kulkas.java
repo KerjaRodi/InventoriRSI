@@ -286,7 +286,7 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 btnSimpan.setText("Simpan Perubahan");
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang as 'ID Barang', barang.nama as 'Nama Barang', barang.harga as 'Harga' FROM barang WHERE barang.id_barang='"+row_id+"'");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT stok_kulkas.id_barang as 'ID Barang', barang.nama as 'Nama Barang', barang.harga_jual as 'Harga', stok_kulkas.jumlahstok as 'Stok' FROM stok_kulkas JOIN barang ON stok_kulkas.id_barang=barang.id_barang WHERE stok_kulkas.id_barang='"+row_id+"'");
                 if(sql.next()){
                     jLabel2.setForeground(new Color(43, 152, 240));
                     String kode = sql.getString("ID Barang");
@@ -295,6 +295,7 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                     txtId.setText(kode);
                     txtNama.setText(sql.getString("Nama Barang"));
                     txtHarga.setText(sql.getString("Harga"));
+                    txtStok.setText (sql.getString("Stok"));
 //                    txtid_kategori.setText(sql.getString("id_kategori"));
 //                    txtsatuan.setText(sql.getString("satuan"));
 //                    txtstok.setText(sql.getString("stok"));
@@ -313,7 +314,77 @@ public class Stok_Kulkas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+String id = txtid.getText();
+        String ID = txtId.getText();
+        String ID2 = txtId.getText();
+        String nama = txtNama.getText();
+        String harga = txtHarga.getText();
+        String stok = txtStok.getText();
+       
+        System.out.println(ID+','+nama+','+harga+','+stok);
+       
+        int c_kode = 0;
+        if(!"".equals(ID) && !"".equals(nama) && !"".equals(harga)){
+            try {
+                Connection conn = konek.openkoneksi();
+                java.sql.Statement stm = conn.createStatement();
+                java.sql.ResultSet sql = stm.executeQuery("SELECT COUNT(barang.id_barang) as count FROM stok_kulkas JOIN barang ON stok_kulkas.id_barang=barang.id_barang WHERE barang.id_barang='"+id+"'");
+                sql.next();
+                c_kode = sql.getInt("count");
+                System.out.println(c_kode);
+                konek.closekoneksi();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error gann 2 " + e);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if(id.equals("")){
+                if(c_kode == 0)
+                {
+                    try {
+                        Connection conn = konek.openkoneksi();
+                        java.sql.Statement stm = conn.createStatement();
+                        java.sql.Statement stm2 = conn.createStatement();
+                        stm.executeUpdate("Insert `barang`  SET `id_barang`='"+ID+"', `nama`='"+nama+"', `harga` ='"+harga+"', `stok` = '"+stok+"'");
+                        stm2.executeUpdate("INSERT INTO `stok_kulkas` SET `id_kulkas`=NULL, `jumlahstok`=NULL , `tanggal`=CURDATE(), `id_barang`='"+ID2+"'");
+                        JOptionPane.showMessageDialog(null, "Berhasil menyimpan data.");
+                        btnSimpan.doClick();
+                        konek.closekoneksi();
+                        GetData();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "Error Gann " + e);
+                    } catch (ClassNotFoundException ex) { 
+                        Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Kode barang sudah pernah disimpan.", "Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                if(c_kode == 0 || id.equals(id))
+                {
+                    try {
+                        Connection conn = konek.openkoneksi();
+                        java.sql.Statement stm = conn.createStatement();
+                        stm.executeUpdate("UPDATE stok_kulkas SET `id_barang`='"+ID+"', `harga_jual` ='"+harga+"', `jumlahstok` = '"+stok+"' FROM stok_kulkas WHERE stok_kulkas.id_barang='"+ID+"'");
+                        JOptionPane.showMessageDialog(null, "Berhasil mengubah data.");
+                        btnSimpan.doClick();
+                        konek.closekoneksi();
+                        GetData();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "Error Update " + e);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Kode barang sudah pernah disimpan.", "Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
