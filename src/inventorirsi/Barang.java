@@ -475,6 +475,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         // TODO add your handling code here:
         String id = txtid.getText();
         String ID = txtID.getText();
+        String ID2 = txtID.getText();
         String nama = txtNama.getText();
         String harga = txtHarga.getText();
         String jumlahPerKarton = txtJmlKarton.getText();
@@ -507,7 +508,9 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
+                        java.sql.Statement stm2 = conn.createStatement();
                         stm.executeUpdate("Insert `barang`  SET `id_barang`='"+ID+"', `nama`='"+nama+"',`jumlah/@karton`="+jumlahPerKarton+",`jumlah_karton`="+jumlah_karton+",`harga/karton`="+harga+",`totalhargakarton`="+total_harga+",`harga/pcs`="+hargaPerPcs+",`harga_jual`="+harga_jual+",`total_profit`="+profit+", `jumlah_sisa`='12'");
+                        stm2.executeUpdate("INSERT INTO `stok_kulkas` SET `id_kulkas`=NULL, `jumlahstok`=NULL , `tanggal`=CURDATE(), `id_barang`='"+ID2+"'");
                         JOptionPane.showMessageDialog(null, "Berhasil menyimpan data.");
                         btnTambah.doClick();
                         konek.closekoneksi();
