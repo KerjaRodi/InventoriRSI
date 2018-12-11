@@ -427,7 +427,8 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT id_barang as 'ID Barang', `nama` as 'Nama', `jumlah/@karton` as 'Jml/@Karton', `jumlah_karton` as 'Jml Karton', `harga/karton` as 'Harga', `totalhargakarton` as 'Total', `harga/pcs` as 'Harga/Pcs', `harga_jual` as 'Harga Jual', `total_profit` as 'Profit', `jumlah_sisa` as Sisa FROM `barang`");
+            
+            java.sql.ResultSet sql = stm.executeQuery("SELECT id_barang as 'ID Barang', `nama` as 'Nama', `jumlah/@karton` as 'Jml/@Karton', `jumlah_karton` as 'Jml Karton', `harga/karton` as 'Harga', `totalhargakarton` as 'Total', `harga/pcs` as 'Harga/Pcs', `harga_jual` as 'Harga Jual', `total_profit` as 'Profit', `jumlah_sisa` as `Jumlah Sisa` FROM `barang`");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
             datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
             datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
