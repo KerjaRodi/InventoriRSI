@@ -123,6 +123,11 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         jScrollPane1.setViewportView(datatable);
 
         btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Ubah");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +137,11 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         });
 
         jButton3.setText("Hapus");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -186,7 +196,7 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             }
         });
 
-        jLabel5.setText("Harga");
+        jLabel5.setText("Harga/karton");
 
         txtHarga.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -204,11 +214,16 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
 
         jLabel10.setText("Harga/Pcs");
 
-        jLabel7.setText("Harga Jual");
+        jLabel7.setText("Harga Jual/pcs");
 
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
+            }
+        });
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField6KeyPressed(evt);
             }
         });
 
@@ -241,14 +256,15 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(185, 185, 185)
                                 .addComponent(btnSimpan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtTotal)
                                     .addComponent(txtHrgaPcs, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
@@ -318,11 +334,16 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                     .addComponent(jLabel8)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnSimpan)
+                .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jButton4.setText("Refresh");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -571,8 +592,10 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
             int harga = Integer.parseInt(txtHarga.getText());
             int totalawal = jmlkarton * jml;
             int hargapcs = harga/jmlkarton;
+            int totalharga = harga*jml;
             jTextField1.setText(String.valueOf(totalawal));
             txtHrgaPcs.setText(String.valueOf(hargapcs));
+            txtTotal.setText(String.valueOf(totalharga));
     }        // TODO add your handling code here:
     }//GEN-LAST:event_txtHargaKeyPressed
 
@@ -588,6 +611,46 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalKeyTyped
 
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void jTextField6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyPressed
+    
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        
+        int hargapcs =  Integer.parseInt(txtHrgaPcs.getText());
+        int hargajual = Integer.parseInt (jTextField6.getText());
+        int profit = hargajual - hargapcs;
+        
+        jTextField7.setText(String.valueOf(profit));
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6KeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+int ok = JOptionPane.showConfirmDialog(null, "Yakin Tah?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION);
+        if(ok==0) {
+            try {
+                String row_id = txtid.getText();
+                Connection conn = konek.openkoneksi();
+                java.sql.Statement stm = conn.createStatement();
+                stm.executeUpdate("DELETE FROM barang WHERE id_barang = '" + row_id + "'");
+                JOptionPane.showMessageDialog(null, "Berhasil menghapus data.");
+               
+                konek.closekoneksi();
+                GetData();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error " + e);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        GetData();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+    
     private void GetData_View(){
         int row = datatable.getSelectedRow();
         String row_id = (datatable.getModel().getValueAt(row, 0).toString());
@@ -611,20 +674,20 @@ inventorirsi.koneksi konek = new inventorirsi.koneksi();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Stok_Gudang().setVisible(true);
+                new Barang().setVisible(true);
             }
         });
     }

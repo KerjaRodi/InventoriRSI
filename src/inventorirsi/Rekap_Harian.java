@@ -47,7 +47,6 @@ public class Rekap_Harian extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -153,14 +152,12 @@ public class Rekap_Harian extends javax.swing.JFrame {
 
         jButton1.setText("Tambah");
 
-        jButton2.setText("Edit");
+        jButton2.setText("Ubah");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        jButton3.setText("Hapus");
 
         jButton6.setText("Cetak");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -177,9 +174,7 @@ public class Rekap_Harian extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
+                .addGap(99, 99, 99)
                 .addComponent(jButton6)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -189,7 +184,6 @@ public class Rekap_Harian extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
                     .addComponent(jButton6))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
@@ -307,20 +301,20 @@ public class Rekap_Harian extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rekap_Harian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rekap_Harian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rekap_Harian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Stok_Gudang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rekap_Harian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Stok_Gudang().setVisible(true);
+                new Rekap_Harian().setVisible(true);
             }
         });
     }
@@ -328,7 +322,6 @@ public class Rekap_Harian extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
