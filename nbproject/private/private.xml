@@ -3,9 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/InventoriRSI/src/inventorirsi/Rekap_Harian.java</file>
             <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Kulkas.java</file>
             <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Gudang.java</file>
+=======
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Login.java</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/InventoriRSI.java</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Kulkas.java</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Gudang.java</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Barang.java</file>
+>>>>>>> 4755833813386e945001c5d9c8bcca2c5226c0ef
         </group>
     </open-files>
 </project-private>

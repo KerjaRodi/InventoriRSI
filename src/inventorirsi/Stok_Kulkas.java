@@ -7,7 +7,11 @@ package inventorirsi;
 
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -63,7 +67,9 @@ public class Stok_Kulkas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtid = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+
+        txtKembalian = new javax.swing.JTextField();
+
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -218,7 +224,17 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Id Barang");
+        jLabel7.setText("Id");
+
+        jLabel8.setText("Uang Kembalian");
+
+        txtKembalian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKembalianActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Simpan");
 
         jLabel8.setText("Uang Kembalian");
 
@@ -232,26 +248,27 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
+                                .addGap(31, 31, 31)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +286,9 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+
+                    .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+
                     .addComponent(jButton5))
                 .addContainerGap())
         );
@@ -380,19 +399,36 @@ String id = txtid.getText();
             }else{
                 if(c_kode == 0 || id.equals(id))
                 {
+                    Tanggal tgl = new Tanggal();
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("UPDATE stok_kulkas SET `id_barang`='"+ID+"',`jumlahstok` = '"+stok+"' WHERE stok_kulkas.id_barang='"+ID+"'");
+
+                        String query = "SELECT (`jumlah/@karton`*`jumlah_karton`) as `jumlah_total`, `jumlah_sisa` FROM `barang` WHERE id_barang='"+id+"'";
+                        stm.executeQuery(query);
+                        ResultSet resultSet = stm.getResultSet();
+                        resultSet.first();
+                        int jmltotal = resultSet.getInt("jumlah_total");
+                        int jmlsisa = resultSet.getInt("jumlah_sisa");
+                        if(jmltotal>jmlsisa){
+                            System.out.println("hahaha");
+                        }
+                        else{
+                        stm.executeUpdate("UPDATE stok_kulkas SET `jumlahstok` = '"+stok+"', `tanggal` = '"+tgl.getTanggal()+"' WHERE id_barang='"+id+"'");
+                        stm.executeUpdate("UPDATE barang SET barang.jumlah_sisa=jumlah_sisa-'"+stok+"'");
                         JOptionPane.showMessageDialog(null, "Berhasil mengubah data.");
-                       
+                        TxtEmpty();
+
                         konek.closekoneksi();
                         GetData();
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Error Update " + e);
+                        }
+//                        
+//                        
+                    }  catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "Error " + e);
                     } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        Logger.getLogger(Stok_Kulkas.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Kode barang sudah pernah disimpan.", "Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
@@ -416,10 +452,22 @@ String id = txtid.getText();
         GetData_View();
     }//GEN-LAST:event_datatableMouseClicked
 
+    private void txtKembalianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKembalianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKembalianActionPerformed
+
     private void GetData_View(){
         int row = datatable.getSelectedRow();
         String row_id = (datatable.getModel().getValueAt(row, 0).toString());
         txtid.setText(row_id);
+        
+    }
+    private void TxtEmpty(){
+        txtid.setText("");
+        txtId.setText("");
+        txtNama.setText("");
+        txtHarga.setText("");
+        txtStok.setText("");
         
     }
     private void GetData(){
@@ -479,7 +527,13 @@ String id = txtid.getText();
             }
         });
     }
-
+public class Tanggal{  
+   
+    private String getTanggal() {  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");  
+        Date date = new Date();  
+        return dateFormat.format(date);  
+    }  }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSimpan;
     private javax.swing.JTable datatable;
@@ -504,6 +558,7 @@ String id = txtid.getText();
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtKembalian;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtStok;
     private javax.swing.JTextField txtid;

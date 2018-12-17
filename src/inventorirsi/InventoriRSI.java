@@ -208,7 +208,7 @@ public class InventoriRSI extends javax.swing.JFrame {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang, barang.nama, (`jumlah/@karton`*`jumlah_karton`) AS `Stok Gudang`, stok_kulkas.jumlahstok AS `Stok Kulkas`  FROM barang JOIN stok_kulkas ON barang.id_barang=stok_kulkas.id_barang");
+            java.sql.ResultSet sql = stm.executeQuery("SELECT barang.id_barang, barang.nama, ((barang.`jumlah/@karton`*barang.`jumlah_karton`)-stok_kulkas.`jumlahstok`) AS `Stok Gudang`, stok_kulkas.jumlahstok AS `Stok Kulkas`  FROM barang JOIN stok_kulkas ON barang.id_barang=stok_kulkas.id_barang");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
             datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
             datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
@@ -297,6 +297,7 @@ public class InventoriRSI extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable datatable;
