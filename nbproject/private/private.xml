@@ -3,20 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Cetak_Rekap_Mingguan.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Rekap_Harian.java</file>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Kulkas.java</file>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Gudang.java</file>
-=======
->>>>>>> 6e0ffb529700f277f5e5ad697995191772563c98
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Login.java</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Cetak_Rekap_Harian.java</file>
             <file>file:/C:/InventoriRSI/src/inventorirsi/InventoriRSI.java</file>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Stok_Kulkas.java</file>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Barang.java</file>
->>>>>>> 4755833813386e945001c5d9c8bcca2c5226c0ef
+            <file>file:/C:/InventoriRSI/src/inventorirsi/report/report_harian.jrxml</file>
         </group>
     </open-files>
 </project-private>
