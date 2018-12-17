@@ -236,10 +236,10 @@ public class InventoriRSI extends javax.swing.JFrame {
         objCategoryDataset.setValue(50,"Minuman","Aqua");
         objCategoryDataset.setValue(20,"Minuman","Milo");
         objCategoryDataset.setValue(10,"Minuman","Teh Kotak");
-        JFreeChart chart = ChartFactory.createBarChart("Data Minuman",null,null,objCategoryDataset);
-        ChartFrame frame = new ChartFrame("Laporan Grafik", chart);
-        frame.setSize(400,400);
-        frame.setVisible(true);
+//        JFreeChart chart = ChartFactory.createBarChart("Data Minuman",null,null,objCategoryDataset);
+//        ChartFrame frame = new ChartFrame("Laporan Grafik", chart);
+//        frame.setSize(400,400);
+//        frame.setVisible(true);
         
         
     }//GEN-LAST:event_jButton6ActionPerformed
