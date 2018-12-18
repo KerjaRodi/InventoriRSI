@@ -6,8 +6,11 @@
 package inventorirsi;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -28,6 +31,7 @@ public class Rekap_Harian extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(Rekap_Harian.DISPOSE_ON_CLOSE);
         GetData();
+        getdetail();
     }
 
     /**
@@ -69,8 +73,9 @@ public class Rekap_Harian extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         txtid = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        datatable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +110,11 @@ public class Rekap_Harian extends javax.swing.JFrame {
         jLabel6.setText("ID Barang");
 
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         txtNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +127,11 @@ public class Rekap_Harian extends javax.swing.JFrame {
         txtSisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSisaActionPerformed(evt);
+            }
+        });
+        txtSisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSisaKeyPressed(evt);
             }
         });
 
@@ -263,6 +278,8 @@ public class Rekap_Harian extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("jLabel8");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -272,23 +289,25 @@ public class Rekap_Harian extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7)
-                                .addGap(32, 32, 32)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton8)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton4))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton8)))
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -300,6 +319,9 @@ public class Rekap_Harian extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,12 +335,11 @@ public class Rekap_Harian extends javax.swing.JFrame {
                             .addComponent(jButton7)
                             .addComponent(jButton8)
                             .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 30, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jLabel8))))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        datatable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -329,7 +350,7 @@ public class Rekap_Harian extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(datatable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -354,7 +375,37 @@ public class Rekap_Harian extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void getdetail()
+    {
+       try {
+           Connection conn = konek.openkoneksi();
+            java.sql.Statement stm = conn.createStatement();
+           String sql = "select * from rekap_hari order by id_rekap desc";
+           Statement st = conn.createStatement();
+           ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                String nofak = rs.getString("id_rekap").substring(1);
+                String AN = "" + (Integer.parseInt(nofak) + 1);
+                String Nol = "";
 
+                if(AN.length()==1)
+                {Nol = "000";}
+                else if(AN.length()==2)
+                {Nol = "00";}
+                else if(AN.length()==3)
+                {Nol = "0";}
+                else if(AN.length()==4)
+                {Nol = "";}
+
+               jLabel8.setText("R" + Nol + AN);
+            } else {
+               jLabel8.setText("F0001");
+            }
+
+           }catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+           }
+     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         String row_id = txtid.getText();
@@ -411,9 +462,6 @@ public class Rekap_Harian extends javax.swing.JFrame {
             datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
             datatable.getColumnModel().getColumn(2).setPreferredWidth(20);
             datatable.getColumnModel().getColumn(3).setPreferredWidth(20);
-
-            
-
             sql.last();
             String count_rows = String.valueOf(sql.getRow());
             //lblcount_rows.setText("Jumlah Data : " + count_rows);
@@ -444,6 +492,42 @@ public class Rekap_Harian extends javax.swing.JFrame {
         // TODO add your handling code here:
         GetData_View();
     }//GEN-LAST:event_datatableMouseClicked
+
+    private void txtSisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSisaKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+        int jumlah =Integer.parseInt(txtJumlah.getText());
+        int sisa =Integer.parseInt(txtSisa.getText());
+        int harga =Integer.parseInt(txtHarga.getText());
+        String subtotal = String.valueOf(harga*(jumlah-sisa));
+        txtSubtotal.setText(subtotal);
+        
+        }
+    }//GEN-LAST:event_txtSisaKeyPressed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+        String idbarang = txtId.getText();
+        String jumlah = txtJumlah.getText();
+        String sisa = txtSisa.getText();
+        String subtotal = txtSubtotal.getText();
+        String detail = jLabel8.getText();
+        try {
+                        Connection conn = konek.openkoneksi();
+                        java.sql.Statement stm = conn.createStatement();
+                        java.sql.Statement stm2 = conn.createStatement();
+                        stm.executeUpdate("Insert into `detail_rekap`  SET `id_detail`='"+detail+"', `tanggal`=CURDATE(),`jumlah`='"+jumlah+"',`sisa`='"+sisa+"',`sub_total`='"+subtotal+"', `id_barang`='"+idbarang+"'");
+                        stm2.executeUpdate("UPDATE `stok_kulkas` SET `jumlahstok`='"+sisa+"' WHERE `id_barang`='"+idbarang+"'");
+                        JOptionPane.showMessageDialog(null, "Berhasil menyimpan data.");
+                        //btnTambah.doClick();
+                        konek.closekoneksi();
+                        GetData();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "Error Gann " + e);
+                    } catch (ClassNotFoundException ex) { 
+                        Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,10 +569,18 @@ public class Rekap_Harian extends javax.swing.JFrame {
         txtid.setText(row_id);
         
     }
+    
+    private void GetData_View2(){
+        int row = datatable2.getSelectedRow();
+        String row_id = (datatable2.getModel().getValueAt(row, 0).toString());
+        txtid.setText(row_id);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSimpan;
     private javax.swing.JTable datatable;
+    private javax.swing.JTable datatable2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -503,6 +595,7 @@ public class Rekap_Harian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -510,7 +603,6 @@ public class Rekap_Harian extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtId;

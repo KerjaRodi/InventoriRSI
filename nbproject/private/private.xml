@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/Cetak_Rekap_Harian.java</file>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/InventoriRSI.java</file>
-            <file>file:/C:/InventoriRSI/src/inventorirsi/report/report_harian.jrxml</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Rekap_Harian.java</file>
+            <file>file:/C:/InventoriRSI/src/inventorirsi/Barang.java</file>
         </group>
     </open-files>
 </project-private>
