@@ -9,12 +9,14 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -32,6 +34,8 @@ public class Stok_Kulkas extends javax.swing.JFrame {
         setDefaultCloseOperation(Stok_Kulkas.DISPOSE_ON_CLOSE);
         
         GetData();
+        getdetail();
+        //jLabel9.setVisible(false);
     }
 
     /**
@@ -62,14 +66,14 @@ public class Stok_Kulkas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtid = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-
-        txtKembalian = new javax.swing.JTextField();
-
+        jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +97,12 @@ public class Stok_Kulkas extends javax.swing.JFrame {
         jLabel3.setText("Nama Barang");
 
         jLabel4.setText("Harga");
+
+        txtHarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHargaActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Stok");
 
@@ -195,6 +205,8 @@ public class Stok_Kulkas extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Hapus");
+
         jButton4.setText("Refresh");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -205,6 +217,8 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4))
         );
@@ -214,25 +228,27 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
+                    .addComponent(jButton3)
                     .addComponent(jButton4))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Id");
+        jLabel7.setText("Id Barang");
 
         jLabel8.setText("Uang Kembalian");
 
-        txtKembalian.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKembalianActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
         jButton5.setText("Simpan");
-
-        jLabel8.setText("Uang Kembalian");
-
-        jButton5.setText("Simpan");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,27 +258,26 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
+                                .addGap(56, 56, 56)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton5)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,20 +295,25 @@ public class Stok_Kulkas extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-
-                    .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
                 .addContainerGap())
         );
+
+        jLabel9.setText("jLabel9");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(290, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -301,7 +321,9 @@ public class Stok_Kulkas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
@@ -450,6 +472,111 @@ String id = txtid.getText();
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKembalianActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void txtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHargaActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+String jumlah = jTextField1.getText();
+String id_detail = jLabel9.getText();
+int d_kode = 0;
+try {
+                        Connection conn = konek.openkoneksi();
+                        java.sql.Statement stm = conn.createStatement();
+                        java.sql.ResultSet sql = stm.executeQuery("SELECT COUNT(uang_kembalian.id_detail) as count FROM uang_kembalian WHERE uang_kembalian.id_detail='"+id_detail+"'");
+                        
+                        //stm.executeUpdate("INSERT `uang_kembalian` SET id_detail='"+id_detail+"', tanggal=CURDATE(), jumlah='"+jumlah+"'");
+                        
+                        sql.next();
+                d_kode = sql.getInt("count");
+                System.out.println(d_kode);
+                System.out.println("ini d kode"+d_kode);
+                konek.closekoneksi();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error gann 2 " + e);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    
+                if(d_kode == 0)
+                {
+                    try {
+                        Connection conn = konek.openkoneksi();
+                        java.sql.Statement stm = conn.createStatement();
+                        
+                        stm.executeUpdate("INSERT `uang_kembalian` SET id_detail='"+id_detail+"', tanggal=CURDATE(), jumlah='"+jumlah+"'");
+                        
+                        JOptionPane.showMessageDialog(null, "Berhasil menyimpan data.");
+                        
+                        konek.closekoneksi();
+                        GetData();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "Error Gann " + e);
+                    } catch (ClassNotFoundException ex) { 
+                        Logger.getLogger(Barang.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else if(d_kode != 0)
+                {
+                    Tanggal tgl = new Tanggal();
+                    try {
+                       Connection conn = konek.openkoneksi();
+                        java.sql.Statement stm = conn.createStatement();
+                        
+                        stm.executeUpdate("UPDATE `uang_kembalian` SET `jumlah`='"+jumlah+"' WHERE id_detail='"+id_detail+"'");
+                        //stm.executeQuery(query);
+                        JOptionPane.showMessageDialog(null, "Berhasil mengubah data.");
+                        konek.closekoneksi();
+                        GetData();
+                        
+    
+    }               catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Stok_Kulkas.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Stok_Kulkas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+    
+    
+    }//GEN-LAST:event_jButton5ActionPerformed
+        private void tampilkembalian(){
+            
+        }
+private void getdetail()
+    {
+       try {
+           Connection conn = konek.openkoneksi();
+            java.sql.Statement stm = conn.createStatement();
+           String sql = "select * from rekap_hari order by id_rekap desc";
+           Statement st = conn.createStatement();
+           ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                String nofak = rs.getString("id_rekap").substring(1);
+                String AN = ""+(Integer.parseInt(nofak)+1);
+                String Nol = "";
+
+                if(AN.length()==1)
+                {Nol = "000";}
+                else if(AN.length()==2)
+                {Nol = "00";}
+                else if(AN.length()==3)
+                {Nol = "0";}
+                else if(AN.length()==4)
+                {Nol = "";}
+
+               jLabel9.setText("R" + Nol + AN);
+            } else {
+               jLabel9.setText("F0001");
+            }
+
+           }catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+           }
+     }
     private void GetData_View(){
         int row = datatable.getSelectedRow();
         String row_id = (datatable.getModel().getValueAt(row, 0).toString());
@@ -533,6 +660,7 @@ public class Tanggal{
     private javax.swing.JTable datatable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -543,6 +671,7 @@ public class Tanggal{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -551,7 +680,6 @@ public class Tanggal{
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtKembalian;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtStok;
     private javax.swing.JTextField txtid;

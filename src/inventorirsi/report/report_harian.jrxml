@@ -47,7 +47,7 @@
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Rekap harian]]></text>
+					<text><![CDATA[Rekap Harian]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="446dc93f-679e-48f1-a743-a71f57f0c1d4"/>

@@ -5,12 +5,25 @@
  */
 package inventorirsi;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author ASUS
  */
 public class Cetak_Rekap_Mingguan extends javax.swing.JFrame {
-
+inventorirsi.koneksi konek = new inventorirsi.koneksi();
     /**
      * Creates new form Cetak_Rekap_Harian
      */
@@ -130,7 +143,24 @@ public class Cetak_Rekap_Mingguan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+SimpleDateFormat date;
+                date = new SimpleDateFormat("yyyy-MM-dd");
+                String d_dari = date.format(jDateChooser1.getDate());
+                String d_sampai = date.format(jDateChooser2.getDate());
+               
+                    try {
+                        HashMap hash = new HashMap();
+                        hash.put("d_dari", d_dari);
+                        hash.put("d_sampai", d_sampai);
+                        
+                        File file1 = new File("/InventoriRSI/src/inventorirsi/report/report_mingguan.jrxml");
+                        JasperDesign jasperDesign = JRXmlLoader.load(file1);
+                        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, hash, konek.openkoneksi());
+                        JasperViewer.viewReport(jasperPrint, false);
+                    }catch (ClassNotFoundException | JRException e) {
+                        JOptionPane.showMessageDialog(null, "Error " + e);
+                    }     // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
